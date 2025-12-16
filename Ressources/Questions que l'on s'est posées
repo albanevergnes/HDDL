@@ -27,3 +27,47 @@ Each training and test example is assigned to one of the following labels:
     7 Sneaker
     8 Bag
     9 Ankle boot"
+
+- quels sont les hyperparamètres et leurs impacts ? (voir PIR 2024-2025)
+
+To determine the optimal hyperparameters in our study, we decide to systematically vary key
+parameters of the autoencoder and evaluate their impact on anomaly detection performance. Each
+hyperparameter influences the model’s capacity to learn, compress, and reconstruct the input data
+effectively. Generally, when training a neural network, two common problems are underfitting
+and overfitting. Overfitting occurs when the model learns not only the underlying patterns in the
+training data but also its noise or irrelevant details. However, underfitting occurs when the model
+is too simple to capture the underlying structure of the data. In this case, the autoencoder fails
+to learn important patterns during training, leading to poor reconstruction performance and low
+anomaly detection accuracy.
+
+The parameters that we evaluate are described below.
+
+The number of layers defines the depth of the autoencoder. Increasing the number of layers
+allows the model to capture more complex and abstract features. However, deeper networks are
+more challenging to train and are more prone to overfitting. Training deep neural networks is also
+more difficult for several reasons. First, the backpropagation process can suffer from vanishing or
+exploding gradients, which slows down or destabilizes learning. Second, deeper networks contain
+more parameters, increasing training time and computational cost.
+
+The number of epochs refers to the number of complete passes through the training dataset
+during model training. If the number of epochs is too low, the model may be underfitted and not
+capture essential patterns.
+
+Batch size determines the number of training samples processed before the model’s internal
+parameters are updated. A small batch size can lead to more robust generalization but might
+increase training time and introduce noise in gradient updates. A large batch size can speed up
+training but risks converging to poor local minima and reducing the model’s capacity to detect
+anomalies.
+
+The learning rate η governs how much the model’s weights are updated during each training
+step. A high learning rate may speed up convergence but can cause instability or overshooting
+of the optimal solution. A low learning rate ensures more stable convergence but requires longer
+training times. Finding an appropriate learning rate is critical for ensuring efficient and stable
+training.
+
+The size of the latent space defined by the number of neurons in the bottleneck layer controls
+the degree of data compression. A smaller latent space encourages the model to preserve only es
+sential features, which can enhance its ability to detect anomalies. However, excessive compression
+may cause loss of important information, leading to poor reconstruction quality. We investigate
+the influence of different latent space sizes on the trade-off between compression and reconstruction
+accuracy
