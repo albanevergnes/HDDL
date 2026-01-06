@@ -1,0 +1,7 @@
+prefix=/home/galuppin/Bureau/5a/HDDL/.conda
+includedir=${prefix}/include
+ 
+Name: PresentProto
+Description: Present extension headers
+Version: 1.4
+Cflags: -I${includedir}
