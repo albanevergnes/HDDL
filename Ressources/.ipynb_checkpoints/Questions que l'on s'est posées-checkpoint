@@ -1,0 +1,73 @@
+- Comment fonctionne le téléchargement des données dans le TP (et du coup comment on l'adapte dans le projet)
+  root : L'endroit où stocker les fichiers sur votre ordinateur.
+  train=True : Charge les 60 000 images destinées à l'entraînement (l'apprentissage).
+  train=False : Charge les 10 000 images destinées au test (pour vérifier si le modèle fonctionne bien après l'entraînement).
+  transform=transform : Applique la conversion en Tenseur définie plus haut à chaque image chargée.
+  download=True : Télécharge les données depuis Internet si elles ne sont pas déjà présentes dans le dossier root.
+  Le Dataset contient les données, mais le DataLoader est l'outil qui les distribue au modèle.
+  Gestion des batches : Il découpe automatiquement les 60 000 images en petits paquets de 128.
+  shuffle=True (pour l'entraînement) : C'est crucial. Cela mélange les cartes à chaque fois qu'on parcourt les données (à chaque "époque"). Si on ne mélange pas, le modèle pourrait apprendre l'ordre des images (ex: "il y a toujours 10 chaussures de suite") au lieu de reconnaître l'objet.
+  shuffle=False (pour le test) : On n'a pas besoin de mélanger pour l'évaluation, on veut juste passer toutes les images pour calculer le score de précision.
+
+- Que contient fichier FashionMNIST? 
+https://www.kaggle.com/datasets/zalando-research/fashionmnist
+"Each image is 28 pixels in height and 28 pixels in width, for a total of 784 pixels in total. Each pixel has a single pixel-value associated with it, indicating the lightness or darkness of that pixel, with higher numbers meaning darker. This pixel-value is an integer between 0 and 255. The training and test data sets have 785 columns. The first column consists of the class labels (see above), and represents the article of clothing. The rest of the columns contain the pixel-values of the associated image.
+To locate a pixel on the image, suppose that we have decomposed x as x = i * 28 + j, where i and j are integers between 0 and 27. The pixel is located on row i and column j of a 28 x 28 matrix.
+For example, pixel31 indicates the pixel that is in the fourth column from the left, and the second row from the top, as in the ascii-diagram below.
+Labels
+Each training and test example is assigned to one of the following labels:
+
+    0 T-shirt/top
+    1 Trouser
+    2 Pullover
+    3 Dress
+    4 Coat
+    5 Sandal
+    6 Shirt
+    7 Sneaker
+    8 Bag
+    9 Ankle boot"
+
+- quels sont les hyperparamètres et leurs impacts ? (voir PIR 2024-2025)
+
+To determine the optimal hyperparameters in our study, we decide to systematically vary key
+parameters of the autoencoder and evaluate their impact on anomaly detection performance. Each
+hyperparameter influences the model’s capacity to learn, compress, and reconstruct the input data
+effectively. Generally, when training a neural network, two common problems are underfitting
+and overfitting. Overfitting occurs when the model learns not only the underlying patterns in the
+training data but also its noise or irrelevant details. However, underfitting occurs when the model
+is too simple to capture the underlying structure of the data. In this case, the autoencoder fails
+to learn important patterns during training, leading to poor reconstruction performance and low
+anomaly detection accuracy.
+
+The parameters that we evaluate are described below.
+
+The number of layers defines the depth of the autoencoder. Increasing the number of layers
+allows the model to capture more complex and abstract features. However, deeper networks are
+more challenging to train and are more prone to overfitting. Training deep neural networks is also
+more difficult for several reasons. First, the backpropagation process can suffer from vanishing or
+exploding gradients, which slows down or destabilizes learning. Second, deeper networks contain
+more parameters, increasing training time and computational cost.
+
+The number of epochs refers to the number of complete passes through the training dataset
+during model training. If the number of epochs is too low, the model may be underfitted and not
+capture essential patterns.
+
+Batch size determines the number of training samples processed before the model’s internal
+parameters are updated. A small batch size can lead to more robust generalization but might
+increase training time and introduce noise in gradient updates. A large batch size can speed up
+training but risks converging to poor local minima and reducing the model’s capacity to detect
+anomalies.
+
+The learning rate η governs how much the model’s weights are updated during each training
+step. A high learning rate may speed up convergence but can cause instability or overshooting
+of the optimal solution. A low learning rate ensures more stable convergence but requires longer
+training times. Finding an appropriate learning rate is critical for ensuring efficient and stable
+training.
+
+The size of the latent space defined by the number of neurons in the bottleneck layer controls
+the degree of data compression. A smaller latent space encourages the model to preserve only es
+sential features, which can enhance its ability to detect anomalies. However, excessive compression
+may cause loss of important information, leading to poor reconstruction quality. We investigate
+the influence of different latent space sizes on the trade-off between compression and reconstruction
+accuracy
