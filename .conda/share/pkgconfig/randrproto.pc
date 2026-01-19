@@ -1,7 +1,0 @@
-prefix=/home/galuppin/Bureau/5a/HDDL/.conda
-includedir=${prefix}/include
- 
-Name: RandrProto
-Description: Randr extension headers
-Version: 1.6.0
-Cflags: -I${includedir}
